@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>'Mohit Kumar' ~ Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- WELCOME OVERLAY (temporary 3D animation on page open) -->
+  <div id="welcome-overlay" class="welcome-overlay" aria-hidden="true" role="dialog" aria-label="Welcome">
+    <div class="welcome-inner">
+      <div class="welcome-left">
+        <h1>Welcome 👋</h1>
+        <p class="lead">You're visiting Mohit Kumar's futuristic portfolio — immersive, minimal and Gen-AI inspired.</p>
+        <div class="welcome-actions">
+          <label class="small">
+            <input id="welcome-no-show" type="checkbox" /> Don't show again
+          </label>
+          <button id="welcome-enter" class="btn primary">Enter Site</button>
+          <button id="welcome-skip" class="btn ghost">Skip Animation</button>
+        </div>
+      </div>
+
+      <div class="welcome-right" aria-hidden="true">
+        <!-- CSS 3D cube + neon lights -->
+        <div class="stage">
+          <div class="cube" id="welcome-cube" aria-hidden="true">
+            <div class="face f1">M</div>
+            <div class="face f2">O</div>
+            <div class="face f3">H</div>
+            <div class="face f4">I</div>
+            <div class="face f5">T</div>
+            <div class="face f6">•</div>
+          </div>
+          <div class="cube-glow"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+  </div>
+
+  <header class="topbar">
+    <div class="logo">Mohit<span class="dot">.</span></div>
+    <nav>
+      <a href="#about" class="nav-link">About 💡</a>
+      <a href="#skills" class="nav-link">Skills 🛠️</a>
+      <a href="#certs" class="nav-link">Certifications 🎓</a>
+      <a href="#extra" class="nav-link">Extracurricular ⚽</a>
+      <a href="#marks" class="nav-link">Board Marks 📊</a>
+      <a href="#interesting" class="nav-link">Interesting ✨</a>
+      <a href="#profile" class="nav-link">Profile 👤</a>
+      <a href="#motivation" class="nav-link">What Motivates Me ❤️</a>
+      <a href="#hometown" class="nav-link">Hometown 🏡</a>
+      <a href="#school" class="nav-link">My School ����</a>
+      <a href="#college" class="nav-link">College 🎓</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <!-- HERO / Intro + small slideshow -->
+    <section class="hero panel" id="about" data-animate>
+      <div class="section-bubble b1"></div>
+      <div class="section-bubble b2"></div>
+      <div class="section-bubble b3"></div>
+
+      <div class="hero-content">
+        <h1 class="name">Mohit Kumar <span class="glow">| BCA</span></h1>
+
+        <div class="hero-slideshow" aria-hidden="false">
+          <div class="hs-slide hs-active">
+            <h2>Building a strong foundation in computer fundamentals & core programming</h2>
+          </div>
+          <div class="hs-slide">
+            <h2>Learning Data Structures & Algorithms — focused on problem solving</h2>
+          </div>
+          <div class="hs-slide">
+            <h2>Exploring Generative AI, Web Technologies & Practical Applications</h2>
+          </div>
+        </div>
+
+        <p class="intro">
+          My name is Mohit Kumar, and I am a Bachelor of Computer Applications (BCA) student at RKDF University, Ranchi. I am building a strong foundation in computer fundamentals and core programming concepts, which has helped me develop a clear and structured understanding of how software systems operate.
+        </p>
+
+        <p class="intro small">
+          Along with my academic studies, I am actively learning Data Structures and Algorithms (DSA) and strengthening my skills in web technologies: HTML, CSS, and JavaScript. I have a strong interest in learning and exploring emerging technologies, particularly Generative AI, and I continuously expand my knowledge through self-learning and experimentation.
+        </p>
+
+        <p class="intro small">
+          The meaning of my name, Mohit, represents attraction, influence, and charisma — qualities I reflect through curiosity, discipline, and a growth-oriented mindset. I aspire to apply my skills to create meaningful, impactful solutions.
+        </p>
+
+        <div class="cta-row">
+          <button class="btn primary" id="open-agent">Open Mohit's agent</button>
+          <a class="btn ghost" href="#skills">View Skills</a>
+        </div>
+      </div>
+
+      <!-- Right side: profile photo + compact hero card -->
+      <aside class="hero-card glass-card" id="card" aria-hidden="false">
+        <div class="card-inner">
+          <div class="photo-wrap" aria-hidden="false">
+            <!-- use a button for accessible click/focus interaction; image file should be placed beside index.html as mohit.png -->
+            <button id="profile-photo-btn" class="photo-btn" aria-label="Open Mohit's profile photo">
+              <img id="profile-photo" src="mohit.png" alt="Mohit Kumar" width="320" height="420" />
+              <span class="photo-ring" aria-hidden="true"></span>
+
+              <!-- SVG overlay used to draw animated outline around the subject.
+                   JS will resize/update the <rect> to match the image dimensions. -->
+              <svg class="photo-outline" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                  <linearGradient id="outline-grad" x1="0" x2="1">
+                    <stop offset="0" stop-color="#00f0ff"/>
+                    <stop offset="1" stop-color="#ff3ec4"/>
+                  </linearGradient>
+                  <filter id="glow">
+                    <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+                    <feMerge>
+                      <feMergeNode in="coloredBlur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+                <!-- a rounded rect path that will be animated -->
+                <rect class="outline-rect" x="0" y="0" rx="18" ry="18" fill="none" stroke="url(#outline-grad)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" filter="url(#glow)"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="spark"></div>
+          <h3>Future-Ready</h3>
+          <p>DSA · Web · Generative AI</p>
+          <div class="card-footer">
+            <span>RKDF University</span>
+            <span>Ranchi</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Skills -->
+    <section class="skills panel" id="skills" data-animate>
+      <div class="section-bubble b1"></div>
+      <div class="section-bubble b2"></div>
+      <div class="section-bubble b3"></div>
+
+      <h3 class="section-title">Skills 🛠️</h3>
+      <p class="muted">Core skills I am currently practicing and improving.</p>
+
+      <div class="skill-grid">
+        <div class="skill-pill">HTML</div>
+        <div class="skill-pill">CSS</div>
+        <div class="skill-pill">C++</div>
+        <div class="skill-pill">DSA</div>
+        <div class="skill-pill">JavaScript</div>
+      </div>
+
+      <div class="skill-carousel" data-carousel>
+        <button class="car-btn prev" aria-label="Previous skill">‹</button>
+        <div class="car-track">
+          <article class="car-item glass-card">
+            <h4>HTML</h4>
+            <p>Semantic markup, accessibility, forms and layout basics. ✅</p>
+          </article>
+          <article class="car-item glass-card">
+            <h4>CSS</h4>
+            <p>Flexbox, Grid, responsive design, animations and visual polish. 🎨</p>
+          </article>
+          <article class="car-item glass-card">
+            <h4>JavaScript</h4>
+            <p>ES6+, DOM, async patterns and small app logic. ⚡</p>
+          </article>
+          <article class="car-item glass-card">
+            <h4>C++</h4>
+            <p>Programming fundamentals, OOP and efficient code. 🧮</p>
+          </article>
+          <article class="car-item glass-card">
+            <h4>DSA</h4>
+            <p>Algorithms, data structures, complexity, and contest practice. 🧩</p>
+          </article>
+        </div>
+        <button class="car-btn next" aria-label="Next skill">›</button>
+      </div>
+    </section>
+
+    <!-- Certifications & Achievements -->
+    <section class="panel cert-section" id="certs" data-animate>
+      <div class="section-bubble b1"></div>
+      <div class="section-bubble b2"></div>
+      <div class="section-bubble b3"></div>
+
+      <h3 class="section-title">Certifications & Achievements 🎓</h3>
+      <p class="muted">Verified certificates & recognitions.</p>
+
+      <div class="cert-carousel" data-carousel>
+        <button class="car-btn prev" aria-label="Previous cert">‹</button>
+        <div class="car-track">
+          <article class="car-item glass-card">
+            <h4>AI Foundations — Coursera</h4>
+            <p class="muted">Verified certificate</p>
+            <a class="cert-link" href="https://www.coursera.org/account/accomplishments/verify/VFQSQXJVOBJ3" target="_blank" rel="noopener">View certificate • VFQSQXJVOBJ3</a>
+          </article>
+
+          <article class="car-item glass-card">
+            <h4>Web Development — Coursera</h4>
+            <p class="muted">Verified certificate</p>
+            <a class="cert-link" href="https://www.coursera.org/account/accomplishments/verify/7Y3T1B1EHSKW" target="_blank" rel="noopener">View certificate • 7Y3T1B1EHSKW</a>
+          </article>
+
+          <article class="car-item glass-card">
+            <h4>Athletics & Awards</h4>
+            <p class="muted">National-level long jump player; multiple medals and recognition (e.g. "Mr. Decent"). 🏅</p>
+          </article>
+        </div>
+        <button class="car-btn next" aria-label="Next cert">›</button>
+      </div>
+    </section>
+
+    <!-- Extracurricular -->
+    <section class="panel" id="extra" data-animate>
+      <div class="section-bubble b1"></div>
+      <div class="section-bubble b2"></div>
+      <div class="section-bubble b3"></div>
+
+      <h3 class="section-title">Extracurricular Activities ⚽</h3>
+      <p class="muted">Sports & athletics highlights.</p>
+
+      <div class="extra-carousel" data-carousel>
+        <button class="car-btn prev" aria-label="Prev extra">‹</button>
+        <div class="car-track">
+          <article class="car-item glass-card">
+            <h4>Track & Field</h4>
+            <p>Specialized in sprinting and long jump events — years of training and competitions. 🏃‍♂️</p>
+          </article>
+
+          <article class="car-item glass-card">
+            <h4>National-level Long Jump</h4>
+            <p>Competed at national level — reflects discipline, commitment and competitive experience. 🇮🇳</p>
+          </article>
+
+          <article class="car-item glass-card">
+            <h4>Medals & Certificates</h4>
+            <p>Numerous medals across school and college meets for sprinting and long jump. 🥇</p>
+          </article>
+        </div>
+        <button class="car-btn next" aria-label="Next extra">›</button>
+      </div>
+    </section>
+
+    <!-- Board Marks -->
+    <section class="panel marks" id="marks" data-animate>
+      <div class="section-bubble b1"></div>
+      <div class="section-bubble b2"></div>
+      <div class="section-bubble b3"></div>
+
+      <h3 class="section-title">Board Marks 📊</h3>
+
+      <div class="marks-wrap">
+        <div class="marks-grid">
+          <div class="mark-card glass-card">
+            <h4>Class 10</h4>
+            <p class="big">79%</p>
+            <p class="muted">Strong foundational performance.</p>
+          </div>
+          <div class="mark-card glass-card">
+            <h4>Class 12 (PCM)</h4>
+            <p class="big">71%</p>
+            <p class="muted">Good performance in PCM stream — focus on programming.</p>
+          </div>
+        </div>
+
+        <aside class="results-right" aria-hidden="true">
+          <h4>Results Overview</h4>
+          <div class="result-graphs">
+            <div class="graph">
+              <div class="graph-label">Class 10 — Overall</div>
+              <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="79">
+                <div class="fill" data-percent="79"></div>
+              </div>
+            </div>
+
+            <div class="graph">
+              <div class="graph-label">Class 12 (PCM) — Overall</div>
+              <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="71">
+                <div class="fill" data-percent="71"></div>
+              </div>
+            </div>
+
+            <div class="graph">
+              <div class="graph-label">DSA Readiness</div>
+              <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="62">
+                <div class="fill" data-percent="62"></div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Interesting -->
+    <section class="panel" id="interesting" data-animate>
+      <div class="section-bubble b1"></div>
+      <div class="section-bubble b2"></div>
+      <div class="section-bubble b3"></div>
+
+      <h3 class="section-title">Interesting ✨</h3>
+      <p class="muted">Hobbies, values & personal interests.</p>
+
+      <div class="interest-carousel" data-carousel>
+        <button class="car-btn prev" aria-label="Prev interest">‹</button>
+        <div class="car-track">
+          <article class="car-item glass-card">
+            <h4>Fitness & Bodybuilding</h4>
+            <p>Regular training, muscle building and disciplined routines. 💪</p>
+          </article>
+
+          <article class="car-item glass-card">
+            <h4>Cooking</h4>
+            <p>Creative outlet — experimenting with recipes and flavors. 🍳</p>
+          </article>
+
+          <article class="car-item glass-card">
+            <h4>Values & Recognition</h4>
+            <p>Deep respect for parents; courteous nature — honored as "Mr. Decent". 🤝</p>
+          </article>
+        </div>
+        <button class="car-btn next" aria-label="Next interest">›</button>
+      </div>
+    </section>
+
+    <!-- PROFILE (new) -->
+    <section class="panel" id="profile" data-animate>
+      <div class="section-bubble b1"></div>
+      <div class="section-bubble b2"></div>
+      <div class="section-bubble b3"></div>
+
+      <h3 class="section-title">Profile & Professional Links 🔗</h3>
+      <p class="muted">Connect with me or learn more about my professional presence online.</p>
+
+      <div class="hobby-grid" style="margin-top:12px">
+        <div class="glass-card" style="padding:16px">
+          <h4>LinkedIn — Mohit Kumar 🔗</h4>
+          <p class="muted">A snapshot of my professional presence and interests on LinkedIn:</p>
+          <ul style="margin:8px 0 0 18px; color:var(--muted)">
+            <li>Showcases my academic background (BCA) and current learning focus in web development and DSA. 🎓</li>
+            <li>Highlights relevant certificates, projects, and practical exercises I have completed. 🧾</li>
+            <li>Reflects my extracurricular achievements (athletics) and disciplined approach to goals. 🏅</li>
+            <li>Invites connections and collaboration for internships, projects, and mentorship opportunities. 🤝</li>
+            <li>Easy way to contact or view verified certificates and professional updates. 📬</li>
+          </ul>
+          <p style="margin-top:10px">
+            <a class="cert-link" href="https://www.linkedin.com/in/mohit-kumar2006/" target="_blank" rel="noopener">Open LinkedIn • mohit-kumar2006</a>
+          </p>
+        </div>
+
+        <div class="glass-card" style="padding:16px">
+          <h4>Meaning of my name ✨</h4>
+          <p class="muted">One of the names of Lord Krishna — the name signifies someone attractive and charming, appealing to those around him. 🙏🌟</p>
+
+          <h4 style="margin-top:12px">About Me — Short Summary 🙋‍♂️</h4>
+          <p class="muted">I am a motivated BCA student building a strong foundation in computer fundamentals, DSA and web technologies (HTML, CSS, JavaScript). I enjoy exploring Generative AI and practical projects, while balancing athletics and disciplined training. My curiosity, persistence, and eagerness to learn drive me to improve my programming and problem-solving skills. I aim to create useful, user-friendly solutions that make a positive impact. 🚀</p>
+
+          <h4 style="margin-top:12px">My Goal 🎯</h4>
+          <p class="muted">My aim is to become a skilled Full Stack Developer, capable of designing, developing, and maintaining both front-end and back-end applications. I aspire to continuously enhance my technical knowledge, work on innovative projects, and contribute to creating efficient, user-friendly, and impactful digital solutions. I am committed to learning new technologies and improving my problem-solving and programming skills to achieve excellence in the field of software development. 💻🌱</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOBBIES & PASSION -->
+    <section class="panel hobbies" id="hobbies" data-animate>
+      <div class="section-bubble b1"></div>
+      <div class="section-bubble b2"></div>
+      <div class="section-bubble b3"></div>
+
+      <h3 class="section-title">⭐ Hobbies & 🔥 Passion</h3>
+      <p class="muted">What I enjoy and what I deeply care about.</p>
+
+      <div class="hobby-grid">
+        <div class="hobby-list glass-card">
+          <h4>Hobbies</h4>
+          <ul>
+            <li>Playing sports (cricket, football, badminton)</li>
+            <li>Drawing or painting</li>
+            <li>Reading books</li>
+            <li>Playing video games</li>
+          </ul>
+        </div>
+
+        <div class="passion glass-card">
+          <h4>Passion</h4>
+          <p>Love for technology and aim to become a good programmer in future.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOMETOWN (new) -->
+    <section class="panel hometown" id="hometown" data-animate>
+      <div class="section-bubble b1"></div>
+      <div class="section-bubble b2"></div>
+      <div class="section-bubble b3"></div>
+
+      <h3 class="section-title">Hometown 🏡</h3>
+      <p class="muted">Where I'm from and what it means to me.</p>
+
+      <div class="place-card glass-card">
+        <div class="place-grid">
+          <img src="bokaro.png" alt="Bokaro Thermal" class="place-img" width="220" height="120" />
+          <div class="place-text">
+            <p>Bokaro Thermal is my hometown, and I have completed my schooling here. The environment of this place has always attracted and inspired me. I feel truly blessed to be living in such a wonderful place.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MY SCHOOL (new) -->
+    <section class="panel school" id="school" data-animate>
+      <div class="section-bubble b1"></div>
+      <div class="section-bubble b2"></div>
+      <div class="section-bubble b3"></div>
+
+      <h3 class="section-title">My School 🏫</h3>
+      <p class="muted">The school that shaped my early years.</p>
+
+      <div class="place-card glass-card">
+        <div class="place-grid">
+          <img src="spms.png" alt="School SPMS" class="place-img" width="220" height="120" />
+          <div class="place-text">
+            <p>School has played a very important role in shaping my life. It is the place where I gained knowledge, learned discipline, and developed good values. My school helped me build confidence and improve my communication skills. It also taught me the importance of teamwork and hard work. I got many opportunities to participate in academic and extracurricular activities, which helped in my overall personality development. My teachers guided and inspired me to achieve my goals and become a responsible person. School also gave me good friends and beautiful memories that I will always cherish.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MY COLLEGE (new) -->
+    <section class="panel college" id="college" data-animate>
+      <div class="section-bubble b1"></div>
+      <div class="section-bubble b2"></div>
+      <div class="section-bubble b3"></div>
+
+      <h3 class="section-title">My College 🎓</h3>
+      <p class="muted">Where I study and grow today.</p>
+
+      <div class="place-card glass-card">
+        <div class="place-grid">
+          <img src="rkdf.png" alt="RKDF University" class="place-img" width="220" height="120" />
+          <div class="place-text">
+            <p>College has played an important role in my life by helping me grow both academically and personally. It has provided me with advanced knowledge and practical skills that will help me build my future career. College has also made me more independent and responsible. I have gotten opportunities to explore new interests, participate in different activities, and develop my talents. It has helped me meet new people from different backgrounds, which improved my communication and social skills. My college experience has increased my confidence and decision-making ability, and it is preparing me to face future challenges successfully.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOTIVATION (new) -->
+    <section class="panel" id="motivation" data-animate>
+      <div class="section-bubble b1"></div>
+      <div class="section-bubble b2"></div>
+      <div class="section-bubble b3"></div>
+
+      <h3 class="section-title">What Motivates Me ❤️</h3>
+      <p class="muted">I am motivated by listening to and applying the thoughts of great thinkers. Below are five guiding principles presented as slides.</p>
+
+      <div class="motivation-carousel" data-carousel>
+        <button class="car-btn prev" aria-label="Previous motivation">‹</button>
+        <div class="car-track">
+          <article class="car-item glass-card">
+            <h4>1. Focus on Self-Improvement</h4>
+            <p class="muted"><strong>Swami Vivekananda said:</strong></p>
+            <blockquote>“Arise, awake and stop not till the goal is reached.”</blockquote>
+            <p>👉 Meaning: Keep working toward your goals even when things feel difficult. Progress comes from consistency.</p>
+          </article>
+
+          <article class="car-item glass-card">
+            <h4>2. Believe in Your Potential</h4>
+            <p class="muted"><strong>Dr. A.P.J. Abdul Kalam said:</strong></p>
+            <blockquote>“Dream, dream, dream. Dreams transform into thoughts and thoughts result in action.”</blockquote>
+            <p>👉 Meaning: Your dreams are important. When you think seriously about them and take action, they can become real.</p>
+          </article>
+
+          <article class="car-item glass-card">
+            <h4>3. Learn from Failures</h4>
+            <p class="muted"><strong>Albert Einstein said:</strong></p>
+            <blockquote>“Failure is success in progress.”</blockquote>
+            <p>👉 Meaning: Mistakes are not the end. They are steps that help you learn and grow.</p>
+          </article>
+
+          <article class="car-item glass-card">
+            <h4>4. Discipline Creates Success</h4>
+            <p class="muted"><strong>Chanakya taught that:</strong></p>
+            <blockquote>A person who is disciplined and focused can achieve any goal.</blockquote>
+            <p>👉 Meaning: Small daily habits like studying regularly, managing time, and staying focused build a strong future.</p>
+          </article>
+
+          <article class="car-item glass-card">
+            <h4>5. Knowledge is Power</h4>
+            <p class="muted"><strong>Confucius said:</strong></p>
+            <blockquote>“It does not matter how slowly you go as long as you do not stop.”</blockquote>
+            <p>👉 Meaning: Even slow progress is good if you continue learning and improving.</p>
+          </article>
+        </div>
+
+        <button class="car-btn next" aria-label="Next motivation">›</button>
+      </div>
+
+      <div class="motivation-cta">
+        <button id="motivate-agent" class="btn ghost">Ask agent what motivates me</button>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="panel contact" id="contact" data-animate>
+      <div class="section-bubble b1"></div>
+      <div class="section-bubble b2"></div>
+      <div class="section-bubble b3"></div>
+
+      <h3 class="section-title">Contact Me</h3>
+      <p class="muted">Line-wise contact details.</p>
+
+      <div class="contact-list glass-card">
+        <div><strong>Email:</strong> mohitkumargup2006@gmail.com</div>
+        <div><strong>Phone:</strong> 7484850729</div>
+        <div><strong>Country:</strong> India</div>
+        <div><strong>State:</strong> Jharkhand</div>
+      </div>
+    </section>
+
+    <!-- FLOATING PERSONAL AI AGENT -->
+    <div id="agent" class="agent" aria-hidden="false" aria-label="mohit's agent">
+      <button id="agent-mini" class="agent-mini" aria-expanded="false" aria-controls="agent-panel" title="mohit's agent" aria-label="Open mohit's agent">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+          <defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#00f0ff"/><stop offset="1" stop-color="#ff3ec4"/></linearGradient></defs>
+          <circle cx="11" cy="11" r="6" stroke="url(#g1)" stroke-width="1.6"></circle>
+          <path d="M20 20l-3.5-3.5" stroke="url(#g1)" stroke-width="1.6" stroke-linecap="round"></path>
+        </svg>
+      </button>
+
+      <div class="agent-panel" id="agent-panel" role="dialog" aria-modal="false" aria-hidden="true" aria-label="mohit's agent panel">
+        <div class="agent-header">
+          <div class="agent-title"><span class="dot"></span> mohit's agent</div>
+          <button id="agent-close" class="icon-btn" aria-label="Close agent">✕</button>
+        </div>
+
+        <div class="agent-body" id="agent-body" role="log" aria-live="polite">
+          <div class="agent-msg bot">Hello — I'm mohit's agent. Ask me about skills, certificates (use the certificate ID to open), marks or achievements. e.g., "show skills"</div>
+        </div>
+
+        <div class="agent-actions">
+          <button class="small-action" data-action="skills">Show skills</button>
+          <button class="small-action" data-action="certs">Show certificates</button>
+          <button class="small-action" data-action="medals">Show medals</button>
+          
+        </div>
+
+        <form id="agent-form" class="agent-form" aria-label="Agent input form">
+          <input id="agent-input" type="text" placeholder="Ask — e.g. 'show skills' or 'open VFQSQ...'" aria-label="Question" />
+          <button type="submit" class="btn btn-glow">Ask</button>
+        </form>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>© Mohit Kumar — BCA Student • Built with ✨</p>
+      <p class="thank">THANKYOU</p>
+    </footer>
+  </main>
+
+  <!-- Cute Gen-AI Assistant Character (top-right) -->
+  <div id="ai-char" class="ai-char" role="button" tabindex="0" aria-label="Gen AI assistant — click to greet">
+    <!-- small speech bubble -->
+    <div class="ai-speech" aria-hidden="true">Hi!</div>
+
+    <!-- face (SVG) -->
+    <svg class="ai-face" viewBox="0 0 120 120" width="72" height="72" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="ai-grad" x1="0" x2="1">
+          <stop offset="0" stop-color="#ffdce6"/>
+          <stop offset="1" stop-color="#e0faff"/>
+        </linearGradient>
+      </defs>
+      <circle class="face-bg" cx="60" cy="60" r="54" fill="url(#ai-grad)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <!-- cheeks -->
+      <circle class="cheek left" cx="38" cy="72" r="6" fill="#ffd1e6" />
+      <circle class="cheek right" cx="82" cy="72" r="6" fill="#ffd1e6" />
+      <!-- eyes -->
+      <g class="eyes">
+        <circle class="eye left" cx="42" cy="52" r="6" fill="#06121a"/>
+        <circle class="eye right" cx="78" cy="52" r="6" fill="#06121a"/>
+      </g>
+      <!-- mouth -->
+      <path class="mouth" d="M44,78 Q60,88 76,78" stroke="#06121a" stroke-width="3" fill="transparent" stroke-linecap="round" />
+      <!-- sparkle -->
+      <g class="sparkle" opacity="0.9" transform="translate(92,30) rotate(25)">
+        <rect x="0" y="0" width="6" height="6" rx="1" fill="#fff7"/>
+        <rect x="6" y="6" width="3" height="3" rx="1" fill="#fff8"/>
+      </g>
+    </svg>
+
+    <!-- hidden aria-live region for screen readers -->
+    <div id="ai-live" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
+  </div>
+
+  <!-- Photo Lightbox (hidden by default) -->
+  <div id="photo-lightbox" class="photo-lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="photo-lightbox-inner" role="document">
+      <button id="photo-lightbox-close" class="lightbox-close" aria-label="Close photo">✕</button>
+      <img id="lightbox-img" src="mohit.png" alt="Mohit Kumar large photo" />
+      <div class="lightbox-caption">Mohit Kumar — click anywhere or press ESC to close</div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
